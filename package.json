@@ -1,17 +1,22 @@
 {
-  "name": "videojs-contrib-ads",
+  "name": "@hola.org/videojs-contrib-ads",
   "description": "A framework that provides common functionality needed by video advertisement libraries working with video.js.",
   "main": "es5/plugin.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/videojs/videojs-contrib-ads.git"
+    "url": "https://github.com/hola/videojs-contrib-ads.git"
   },
-  "version": "4.2.0",
+  "version": "4.2.0-1",
   "author": "Brightcove",
   "engines": {
     "node": ">= 0.8.0"
   },
   "scripts": {
+    "login": "c=`npm c ls`; test \"${c#*@hola}\" != \"$c\" || npm login --scope @hola.org",
+    "release": "run-s build login release:*",
+    "release:tag": "git tag v$npm_package_version",
+    "release:publish": "npm publish",
+    "release:pushtags": "git push --tags origin",
     "prebuild": "npm run clean",
     "build": "npm-run-all -p build:*",
     "build:css": "npm-run-all build:css:sass build:css:bannerize",
