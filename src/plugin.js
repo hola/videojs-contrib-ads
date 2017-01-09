@@ -203,7 +203,7 @@ const contribAdsPlugin = function(options) {
     // This is only done during live streams on platforms where it's supported.
     // This improves speed and accuracy when returning from an ad break.
     shouldPlayContentBehindAd(somePlayer) {
-      return !videojs.browser.IS_IOS &&
+      return !settings.disablePlayContentBehindAd && !videojs.browser.IS_IOS &&
              !videojs.browser.IS_ANDROID &&
              somePlayer.duration() === Infinity;
     }
