@@ -14,9 +14,11 @@
   "scripts": {
     "login": "c=`npm c ls`; test \"${c#*@hola}\" != \"$c\" || npm login --scope @hola.org",
     "release": "run-s build login release:*",
+    "release:dist": "git add -f dist && git commit -m \"add dist v$npm_package_version\"",
     "release:tag": "git tag v$npm_package_version",
     "release:publish": "npm publish",
     "release:pushtags": "git push --tags origin",
+    "release:reset": "git reset --hard HEAD~1",
     "prebuild": "npm run clean",
     "build": "npm-run-all -p build:*",
     "build:css": "npm-run-all build:css:sass build:css:bannerize",
@@ -37,11 +39,7 @@
     "test:chrome": "npm run pretest && karma start test/karma.conf.js --browsers Chrome",
     "test:firefox": "npm run pretest && karma start test/karma.conf.js --browsers Firefox",
     "test:ie": "npm run pretest && karma start test/karma.conf.js --browsers IE",
-    "test:safari": "npm run pretest && karma start test/karma.conf.js --browsers Safari",
-    "preversion": "npm test",
-    "version": "babel-node scripts/version.js",
-    "postversion": "babel-node scripts/postversion.js",
-    "prepublish": "npm run build"
+    "test:safari": "npm run pretest && karma start test/karma.conf.js --browsers Safari"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
