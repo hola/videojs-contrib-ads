@@ -146,12 +146,18 @@ const contribAdsPlugin = function(options) {
 
     // Call this when a linear ad pod has finished playing.
     endLinearAdMode() {
-      if (player.ads.state === 'ad-playback') {
-        player.trigger('adend');
+      if (player.ads.state === 'ad-playback' ||
+        player.ads.state === 'preroll?') {
         // In the case of an empty ad response, we want to make sure that
         // the vjs-ad-loading class is always removed. We could probably check for
         // duration on adPlayer for an empty ad but we remove it here just to make sure
         player.removeClass('vjs-ad-loading');
+      }
+      if (player.ads.state === 'ad-playback') {
+        player.trigger('adend');
+      }
+      if (player.ads.state === 'preroll?') {
+        player.trigger('nopreroll');
       }
     },
 
