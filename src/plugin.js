@@ -81,6 +81,18 @@ const contribAdsPlugin = function(options) {
 
   // Set up redispatching of player events
   player.on(videoEvents, redispatch);
+  // Move redispatch to be first handler
+  if (videojs.dom) {
+    let data = videojs.dom.getElData(player.el());
+    videoEvents.forEach(type => {
+      let handlers = data.handlers[type];
+      let handler = handlers && handlers.find(h => h.guid === redispatch.guid);
+      if (handler) {
+        handlers.splice(handlers.indexOf(handler), 1);
+        handlers.unshift(handler);
+      }
+    });
+  }
 
   // "vjs-has-started" should be present at the end of a video. This makes sure it's
   // always there.
