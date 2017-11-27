@@ -94,6 +94,14 @@ const contribAdsPlugin = function(options) {
     });
   }
 
+  // videojs expects 'play' event but we redispatch it as 'contentplay'
+  // so need to update play button state
+  player.on('contentplay', function(){
+    if (player.controlBar.playToggle) {
+      player.controlBar.playToggle.handlePlay();
+    }
+  });
+
   // "vjs-has-started" should be present at the end of a video. This makes sure it's
   // always there.
   player.on('ended', function() {
