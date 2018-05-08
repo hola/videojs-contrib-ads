@@ -126,8 +126,8 @@ export default function redispatch(event) {
     }
 
     // Content resuming after preroll or midroll
-    // Events besides "playing" get "content" prefix
-    if (event.type !== 'playing') {
+    // Events besides "playing" and "error" get "content" prefix
+    if (event.type !== 'playing' && event.type !== 'error') {
       prefixEvent(this, 'content', event);
     }
 
